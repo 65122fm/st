@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Psixoloji Dəstək Platforması</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             margin: 0;
@@ -20,18 +21,48 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         header h1 {
             margin: 0;
+            margin-left: 30px;
             font-size: 1.5rem;
         }
 
         nav a {
             color: white;
-            margin-left: 1rem;
+            margin-left: 1.5rem;
             text-decoration: none;
             font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #4f46e5;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            padding: 0.5rem 0;
+            text-decoration: none;
         }
 
         .hero {
@@ -87,6 +118,7 @@
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
+            transition: background-color 0.3s;
         }
 
         .btn:hover {
@@ -109,6 +141,7 @@
             border-radius: 0.5rem;
             border: 1px solid #ccc;
             resize: none;
+            font-family: 'Inter', sans-serif;
         }
 
         .response {
@@ -124,18 +157,157 @@
             font-size: 0.9rem;
             color: #777;
         }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding-top: 1rem;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-menu {
+            padding: 1rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 0.75rem 0;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .sidebar-menu a:hover {
+            color: #4f46e5;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 900;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        /* Timer styles */
+        .timer {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .sidebar {
+                width: 80%;
+            }
+        }
     </style>
 </head>
 <body>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Psixoloji Platforma</h3>
+            <button onclick="toggleSidebar()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="sidebar-menu">
+            <a href="#anonimqutu"><i class="fas fa-inbox"></i> Anonim Qutu</a>
+            <a href="#chatbot"><i class="fas fa-robot"></i> AI Chatbot</a>
+            <a href="#voice"><i class="fas fa-microphone"></i> Səsli Jurnal</a>
+        </div>
+    </div>
+
     <header>
         <h1>Psixoloji Platforma</h1>
-        <nav>
-            <a href="#anonimqutu">Anonim Qutu</a>
-            <a href="#chatbot">AI Chatbot</a>
-            <a href="#voice">Səsli Jurnal</a>
+        <nav class="desktop-nav">
             <a href="#daxilol" class="btn">Daxil ol</a>
             <a href="#qeydiyyat" class="btn">Qeydiyyat</a>
         </nav>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#anonimqutu">Anonim Qutu</a>
+            <a href="#chatbot">AI Chatbot</a>
+            <a href="#voice">Səsli Jurnal</a>
+            <a href="#daxilol">Daxil ol</a>
+            <a href="#qeydiyyat">Qeydiyyat</a>
+        </div>
     </header>
 
     <section class="hero">
@@ -171,23 +343,27 @@
     </section>
 
     <div class="anonim-box" id="anonimqutu">
-        <h3>Anonim Qutu</h3>
-        <textarea placeholder="Buraya səni narahat edən bir şeyi yaz..." rows="5"></textarea>
+        <h3>Anonim Qutu <i class="fas fa-lock"></i></h3>
+        <p>Burada yazdıqlarınız tamamilə anonimdir və 20 saniyə sonra silinəcək.</p>
+        <textarea placeholder="Buraya səni narahat edən bir şeyi yaz..." rows="5" id="anonimInput"></textarea>
+        <div class="timer" id="anonimTimer"></div>
         <button class="btn" onclick="submitAnonim()">Göndər</button>
         <div id="anonimResponse" class="response"></div>
     </div>
 
     <div class="chatbot" id="chatbot">
-        <h3>AI Chatbot</h3>
+        <h3>AI Chatbot <i class="fas fa-robot"></i></h3>
         <textarea placeholder="Probleminizi yazın..." rows="4" id="chatInput"></textarea>
         <button class="btn" onclick="aiReply()">Cavab Al</button>
         <div id="chatResponse" class="response"></div>
     </div>
 
     <div class="voice-journal" id="voice">
-        <h3>Səsli Jurnal</h3>
+        <h3>Səsli Jurnal <i class="fas fa-microphone"></i></h3>
         <p>Mikrofonla danış, sistem səni anlayacaq!</p>
-        <button class="btn" onclick="startVoiceJournal()">Danışa Başla</button>
+        <button class="btn" id="voiceBtn" onclick="toggleVoiceJournal()">
+            <i class="fas fa-microphone"></i> Danışa Başla
+        </button>
         <div id="voiceLog" class="response"></div>
     </div>
 
@@ -196,15 +372,62 @@
         <a href="#" class="btn">Ana Səhifəyə Qayıt</a>
     </div>
 
+    <div class="notification" id="notification">
+        Mesajınız uğurla göndərildi və 20 saniyə sonra silinəcək.
+    </div>
+
     <footer>
         &copy; 2025 Psixoloji Platforma. Bütün huquqlar qorunur.
     </footer>
 
     <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').style.display = 
+                document.getElementById('mobileMenu').style.display === 'block' ? 'none' : 'block';
+        }
+
+        let anonimTimer;
+        let secondsLeft = 20;
+
         function submitAnonim() {
-            const msg = document.querySelector('.anonim-box textarea').value;
-            const reply = msg ? 'Mesajın qeydə alındı. 24 saat ərzində cavab veriləcək.' : 'Zəhmət olmasa mesaj yaz.';
-            document.getElementById('anonimResponse').innerText = reply;
+            const msg = document.getElementById('anonimInput').value;
+            if (!msg) {
+                document.getElementById('anonimResponse').innerText = 'Zəhmət olmasa mesaj yaz.';
+                return;
+            }
+
+            // Show notification
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+
+            if (anonimTimer) {
+                clearInterval(anonimTimer);
+            }
+
+            secondsLeft = 20;
+            document.getElementById('anonimTimer').innerText = `Mesaj ${secondsLeft} saniyə sonra silinəcək`;
+
+            anonimTimer = setInterval(() => {
+                secondsLeft--;
+                document.getElementById('anonimTimer').innerText = `Mesaj ${secondsLeft} saniyə sonra silinəcək`;
+
+                if (secondsLeft <= 0) {
+                    clearInterval(anonimTimer);
+                    document.getElementById('anonimInput').value = '';
+                    document.getElementById('anonimResponse').innerText = '';
+                    document.getElementById('anonimTimer').innerText = '';
+                }
+            }, 1000);
+
+            document.getElementById('anonimResponse').innerText = 'Mesajın qeydə alındı. Anonim qalacaq.';
         }
 
         function aiReply() {
@@ -213,9 +436,30 @@
             document.getElementById('chatResponse').innerText = response;
         }
 
-        function startVoiceJournal() {
-            document.getElementById('voiceLog').innerText = "(Simulyasiya) Səsini yazıya çevirdik: 'Bugün bir az gərgin idim, amma danışmaq yaxşı hiss etdirdi.'";
+        let isRecording = false;
+
+        function toggleVoiceJournal() {
+            const voiceBtn = document.getElementById('voiceBtn');
+            const voiceLog = document.getElementById('voiceLog');
+
+            if (isRecording) {
+                // Stop recording
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i> Danışa Başla';
+                voiceLog.innerText = "(Simulyasiya) Səs yazısı: 'Bugün özümü yaxşı hiss etmirəm, amma bunu danışmaq kömək etdi.'";
+            } else {
+                // Start recording
+                voiceBtn.innerHTML = '<i class="fas fa-stop"></i> Dayandır';
+                voiceLog.innerText = "Dinləyirəm...";
+            }
+
+            isRecording = !isRecording;
         }
+
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').style.display = 'none';
+            });
+        });
     </script>
 </body>
 </html>

@@ -1,661 +1,749 @@
 <!DOCTYPE html>
 <html lang="az">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Psixoloji Dəstək Platforması</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f6f8;
-            color: #333;
-        }
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background-color: #f4f6f8;
+        color: #333;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
 
-        header {
-            background-color: #4f46e5;
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
+      header {
+        background-color: #4f46e5;
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
 
-        header h1 {
-            margin: 0;
-            margin-left: 30px;
-            font-size: 1.5rem;
-        }
+      header h1 {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        margin-left: 30px;
+        font-size: 1.5rem;
+      }
 
-        nav a {
-            color: white;
-            margin-left: 1.5rem;
-            text-decoration: none;
-            font-weight: 600;
+      nav a {
+        color: white;
+        margin-left: 1.5rem;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #4f46e5;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+      }
+
+      .mobile-menu a {
+        display: block;
+        color: white;
+        padding: 0.5rem 0;
+        text-decoration: none;
+      }
+
+      .hero {
+        padding: 4rem 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .feature {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .feature h3 {
+        margin-top: 0;
+        color: #4f46e5;
+      }
+
+      .buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        background-color: #4f46e5;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #4338ca;
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid #4f46e5;
+        color: #4f46e5;
+      }
+
+      .btn-outline:hover {
+        background-color: #f0f0ff;
+      }
+
+      .anonim-box,
+      .chatbot,
+      .voice-journal {
+        background: white;
+        margin: 2rem auto;
+        max-width: 700px;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      textarea {
+        width: 95%;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        resize: none;
+        font-family: "Inter", sans-serif;
+      }
+
+      .response {
+        margin-top: 1rem;
+        background: #f0f0f0;
+        padding: 1rem;
+        border-radius: 0.5rem;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.9rem;
+        color: #777;
+      }
+
+      /* Sidebar styles */
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        background-color: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        padding-top: 1rem;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+      .header-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 1rem;
+      }
+      .sidebar-header {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+      }
+
+      .sidebar-menu {
+        padding: 1rem;
+      }
+
+      .sidebar-menu a {
+        display: block;
+        padding: 0.75rem 0;
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .sidebar-menu a:hover {
+        color: #4f46e5;
+      }
+
+      .sidebar-toggle {
+        position: fixed;
+        left: 10px;
+        top: 10px;
+        background: #4f46e5;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 999;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 900;
+        display: none;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #4caf50;
+        color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1000;
+      }
+
+      /* Timer styles */
+      .timer {
+        font-size: 0.8rem;
+        color: #777;
+        margin-top: 0.5rem;
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #777;
+      }
+
+      .psychologist-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .psychologist-card {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border: 1px solid #eee;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .psychologist-card:hover {
+        background-color: #f8f9ff;
+        border-color: #4f46e5;
+      }
+
+      .psychologist-card img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 1rem;
+      }
+
+      .psychologist-info {
+        flex: 1;
+      }
+
+      .psychologist-info h4 {
+        margin: 0;
+        color: #4f46e5;
+      }
+
+      .psychologist-info p {
+        margin: 0.25rem 0 0;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      /* Responsive styles */
+      @media (max-width: 768px) {
+        .desktop-nav {
+          display: none;
         }
 
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+          display: block;
         }
 
-        .mobile-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: #4f46e5;
-            padding: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-        }
-
-        .mobile-menu a {
-            display: block;
-            color: white;
-            padding: 0.5rem 0;
-            text-decoration: none;
-        }
-
-        .hero {
-            padding: 4rem 2rem;
-            text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-        }
-
-        .feature {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            position: relative;
-        }
-
-        .feature h3 {
-            margin-top: 0;
-            color: #4f46e5;
-        }
-
-        .buttons {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            background-color: #4f46e5;
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #4338ca;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid #4f46e5;
-            color: #4f46e5;
-        }
-
-        .btn-outline:hover {
-            background-color: #f0f0ff;
-        }
-
-        .anonim-box, .chatbot, .voice-journal {
-            background: white;
-            margin: 2rem auto;
-            max-width: 700px;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        textarea {
-            width: 95%;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #ccc;
-            resize: none;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .response {
-            margin-top: 1rem;
-            background: #f0f0f0;
-            padding: 1rem;
-            border-radius: 0.5rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            color: #777;
-        }
-
-        /* Sidebar styles */
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 250px;
-            background-color: white;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-            padding-top: 1rem;
+          width: 80%;
         }
-
-        .sidebar.active {
-            transform: translateX(0);
-        }
-
-        .sidebar-header {
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-        }
-
-        .sidebar-menu {
-            padding: 1rem;
-        }
-
-        .sidebar-menu a {
-            display: block;
-            padding: 0.75rem 0;
-            color: #333;
-            text-decoration: none;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .sidebar-menu a:hover {
-            color: #4f46e5;
-        }
-
-        .sidebar-toggle {
-            position: fixed;
-            left: 10px;
-            top: 10px;
-            background: #4f46e5;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 900;
-            display: none;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: none;
-            z-index: 1000;
-        }
-
-        /* Timer styles */
-        .timer {
-            font-size: 0.8rem;
-            color: #777;
-            margin-top: 0.5rem;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #777;
-        }
-
-        .psychologist-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .psychologist-card {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border: 1px solid #eee;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .psychologist-card:hover {
-            background-color: #f8f9ff;
-            border-color: #4f46e5;
-        }
-
-        .psychologist-card img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 1rem;
-        }
-
-        .psychologist-info {
-            flex: 1;
-        }
-
-        .psychologist-info h4 {
-            margin: 0;
-            color: #4f46e5;
-        }
-
-        .psychologist-info p {
-            margin: 0.25rem 0 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .desktop-nav {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .sidebar {
-                width: 80%;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <button class="sidebar-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
+      <i class="fas fa-bars"></i>
     </button>
 
     <div class="overlay" onclick="toggleSidebar()"></div>
-
     <div class="sidebar">
-        <div class="sidebar-header">
-            <h3>Psixoloji Platforma</h3>
-            <button onclick="toggleSidebar()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="sidebar-menu">
-            <a href="#anonimqutu"><i class="fas fa-inbox"></i> Anonim Qutu</a>
-            <a href="#chatbot"><i class="fas fa-robot"></i> AI Chatbot</a>
-            <a href="#voice"><i class="fas fa-microphone"></i> Səsli Jurnal</a>
-        </div>
+      <div class="sidebar-header">
+        
+        <h3>Solvia</h3>
+        <button
+          onclick="toggleSidebar()"
+          style="
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+          ">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="sidebar-menu">
+        <a href="#anonimqutu"><i class="fas fa-inbox"></i> Anonim Qutu</a>
+        <a href="#chatbot"><i class="fas fa-robot"></i> AI Chatbot</a>
+        <a href="#voice"><i class="fas fa-microphone"></i> Səsli Jurnal</a>
+      </div>
     </div>
 
     <header>
-        <h1>Psixoloji Platforma</h1>
-        <nav class="desktop-nav">
-            <a href="#daxilol" class="btn">Daxil ol</a>
-            <a href="#qeydiyyat" class="btn">Qeydiyyat</a>
-            <a href="#qeydiyyat" class="btn">Abone ol</a>
-        </nav>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#anonimqutu">Anonim Qutu</a>
-            <a href="#chatbot">AI Chatbot</a>
-            <a href="#voice">Səsli Jurnal</a>
-            <a href="#daxilol">Daxil ol</a>
-            <a href="#qeydiyyat">Qeydiyyat</a>
-        </div>
+      <h1><img class="header-icon" src="./image.png" alt="" />PsyXidmət</h1>
+      <nav class="desktop-nav">
+        <a href="#daxilol" class="btn">Daxil ol</a>
+        <a href="#qeydiyyat" class="btn">Qeydiyyat</a>
+        <a href="#qeydiyyat" class="btn">Abone ol</a>
+      </nav>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#anonimqutu">Anonim Qutu</a>
+        <a href="#chatbot">AI Chatbot</a>
+        <a href="#voice">Səsli Jurnal</a>
+        <a href="#daxilol">Daxil ol</a>
+        <a href="#qeydiyyat">Qeydiyyat</a>
+      </div>
     </header>
 
     <section class="hero">
-        <h2>Daxili Səsi Dinlə, Dəyişməyə Başla</h2>
-        <p>Uyğun psixoloq tap, dəstək qruplarına qoşul, səsli gündəliklər yarat və daha çoxunu kəşf et!</p>
+      <h2>Daxili Səsi Dinlə, Dəyişməyə Başla</h2>
+      <p>
+        Uyğun psixoloq tap, dəstək qruplarına qoşul, səsli gündəliklər yarat və
+        daha çoxunu kəşf et!
+      </p>
     </section>
 
     <section class="features">
-        <div class="feature" id="psychologistFeature">
-            <h3>Uyğun Psixoloq Tap</h3>
-            <p>Qısa testlərə əsasən səni anlayan mütəxəssis ilə görüş.</p>
-            <button class="btn" onclick="showPsychologistOptions()" style="margin-top: 10px;">Psixoloq Tap</button>
-        </div>
-        <div class="feature">
-            <h3>Təcili Psixoloji Dəstək</h3>
-            <p>Krisis anlarında sürətli yazışma və ya zəng imkanı ilə yardım.</p>
-        </div>
-        <div class="feature">
-            <h3>Sən tək deyilsən!</h3>
-            <p>Qapalı Dəstək Qrupları.Depressiya, imtahan stresi və digər mövzular üzrə etibarlı paylaşım məkanı.</p>
-        </div>
-        <div class="feature">
-            <h3>Gamification Sistemi</h3>
-            <p>Təlimlərdə iştirak et, xallar topla, endirimlər qazan.</p>
-        </div>
-        <div class="feature">
-            <h3>AI Chatbot və İç Səslə Danış</h3>
-            <p>Sünî intellektli köməkçi ilə dərhal sohbət və ya səsli gündəlik təcrübəsi yaşa.</p>
-        </div>
-        <div class="feature">
-            <h3>İzləmə və Xatırlatmalar</h3>
-            <p>Gündəlik vəziyyət izləmə və terapiya üçün xatırlatmalarla motivasiyanı qoruyun.</p>
-        </div>
+      <div class="feature" id="psychologistFeature">
+        <h3>Uyğun Psixoloq Tap</h3>
+        <p>Qısa testlərə əsasən səni anlayan mütəxəssis ilə görüş.</p>
+        <button
+          class="btn"
+          onclick="showPsychologistOptions()"
+          style="margin-top: 10px">
+          Psixoloq Tap
+        </button>
+      </div>
+      <div class="feature">
+        <h3>Təcili Psixoloji Dəstək</h3>
+        <p>Krisis anlarında sürətli yazışma və ya zəng imkanı ilə yardım.</p>
+      </div>
+      <div class="feature">
+        <h3>Sən tək deyilsən!</h3>
+        <p>
+          Qapalı Dəstək Qrupları.Depressiya, imtahan stresi və digər mövzular
+          üzrə etibarlı paylaşım məkanı.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Gamification Sistemi</h3>
+        <p>Təlimlərdə iştirak et, xallar topla, endirimlər qazan.</p>
+      </div>
+      <div class="feature">
+        <h3>AI Chatbot və İç Səslə Danış</h3>
+        <p>
+          Sünî intellektli köməkçi ilə dərhal sohbət və ya səsli gündəlik
+          təcrübəsi yaşa.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>İzləmə və Xatırlatmalar</h3>
+        <p>
+          Gündəlik vəziyyət izləmə və terapiya üçün xatırlatmalarla motivasiyanı
+          qoruyun.
+        </p>
+      </div>
     </section>
 
     <!-- Psychologist Selection Modal -->
     <div class="modal" id="psychologistModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('psychologistModal')">&times;</button>
-            <h3>Psixoloq seçimi</h3>
-            <p>Qısa test vasitəsilə sizə uyğun psixoloqu tapmaq istəyirsiniz, yoxsa özünüz seçmək istəyirsiniz?</p>
-            
-            <div class="psychologist-options">
-                <button class="btn" onclick="startPsychologistTest()">
-                    <i class="fas fa-clipboard-list"></i> Test et
-                </button>
-                <button class="btn btn-outline" onclick="showPsychologistList()">
-                    <i class="fas fa-user-md"></i> Özüm seçim
-                </button>
-            </div>
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('psychologistModal')">
+          &times;
+        </button>
+        <h3>Psixoloq seçimi</h3>
+        <p>
+          Qısa test vasitəsilə sizə uyğun psixoloqu tapmaq istəyirsiniz, yoxsa
+          özünüz seçmək istəyirsiniz?
+        </p>
+
+        <div class="psychologist-options">
+          <button class="btn" onclick="startPsychologistTest()">
+            <i class="fas fa-clipboard-list"></i> Test et
+          </button>
+          <button class="btn btn-outline" onclick="showPsychologistList()">
+            <i class="fas fa-user-md"></i> Özüm seçim
+          </button>
         </div>
+      </div>
     </div>
 
     <!-- Psychologist List Modal -->
     <div class="modal" id="psychologistListModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('psychologistListModal')">&times;</button>
-            <h3>Psixoloqlar</h3>
-            <p>İxtisas sahəsinə görə psixoloq seçin:</p>
-            
-            <div class="psychologist-options">
-                <div class="psychologist-card" onclick="selectPsychologist('Dr. Aydan Əliyeva')">
-                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Psixoloq">
-                    <div class="psychologist-info">
-                        <h4>Dr. Aydan Əliyeva</h4>
-                        <p>Depressiya, Anksiyetə</p>
-                        <p>5 illik təcrübə</p>
-                    </div>
-                </div>
-                
-                <div class="psychologist-card" onclick="selectPsychologist('Dr. Elvin Hüseynov')">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Psixoloq">
-                    <div class="psychologist-info">
-                        <h4>Dr. Elvin Hüseynov</h4>
-                        <p>Ailə məsələləri, Əlaqələr</p>
-                        <p>8 illik təcrübə</p>
-                    </div>
-                </div>
-                
-                <div class="psychologist-card" onclick="selectPsychologist('Dr. Ləman Qasımova')">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Psixoloq">
-                    <div class="psychologist-info">
-                        <h4>Dr. Ləman Qasımova</h4>
-                        <p>Uşaq psixologiyası</p>
-                        <p>10 illik təcrübə</p>
-                    </div>
-                </div>
+      <div class="modal-content">
+        <button
+          class="modal-close"
+          onclick="closeModal('psychologistListModal')">
+          &times;
+        </button>
+        <h3>Psixoloqlar</h3>
+        <p>İxtisas sahəsinə görə psixoloq seçin:</p>
+
+        <div class="psychologist-options">
+          <div
+            class="psychologist-card"
+            onclick="selectPsychologist('Dr. Aydan Əliyeva')">
+            <img
+              src="https://randomuser.me/api/portraits/women/65.jpg"
+              alt="Psixoloq" />
+            <div class="psychologist-info">
+              <h4>Dr. Aydan Əliyeva</h4>
+              <p>Depressiya, Anksiyetə</p>
+              <p>5 illik təcrübə</p>
             </div>
+          </div>
+
+          <div
+            class="psychologist-card"
+            onclick="selectPsychologist('Dr. Elvin Hüseynov')">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="Psixoloq" />
+            <div class="psychologist-info">
+              <h4>Dr. Elvin Hüseynov</h4>
+              <p>Ailə məsələləri, Əlaqələr</p>
+              <p>8 illik təcrübə</p>
+            </div>
+          </div>
+
+          <div
+            class="psychologist-card"
+            onclick="selectPsychologist('Dr. Ləman Qasımova')">
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="Psixoloq" />
+            <div class="psychologist-info">
+              <h4>Dr. Ləman Qasımova</h4>
+              <p>Uşaq psixologiyası</p>
+              <p>10 illik təcrübə</p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Test Modal -->
     <div class="modal" id="testModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('testModal')">&times;</button>
-            <h3>Psixoloji Test</h3>
-            <div id="testQuestions">
-                <div class="test-question">
-                    <p>1. Son zamanlarda özünüzü necə hiss edirsiniz?</p>
-                    <div class="test-options">
-                        <label><input type="radio" name="q1" value="1"> Çox yaxşı</label>
-                        <label><input type="radio" name="q1" value="2"> Normal</label>
-                        <label><input type="radio" name="q1" value="3"> Pis</label>
-                        <label><input type="radio" name="q1" value="4"> Çox pis</label>
-                    </div>
-                </div>
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('testModal')">
+          &times;
+        </button>
+        <h3>Psixoloji Test</h3>
+        <div id="testQuestions">
+          <div class="test-question">
+            <p>1. Son zamanlarda özünüzü necə hiss edirsiniz?</p>
+            <div class="test-options">
+              <label
+                ><input type="radio" name="q1" value="1" /> Çox yaxşı</label
+              >
+              <label><input type="radio" name="q1" value="2" /> Normal</label>
+              <label><input type="radio" name="q1" value="3" /> Pis</label>
+              <label><input type="radio" name="q1" value="4" /> Çox pis</label>
             </div>
-            <button class="btn" onclick="submitTest()" style="margin-top: 1rem;">Testi Tamamla</button>
+          </div>
         </div>
+        <button class="btn" onclick="submitTest()" style="margin-top: 1rem">
+          Testi Tamamla
+        </button>
+      </div>
     </div>
 
     <div class="anonim-box" id="anonimqutu">
-        <h3>Anonim Qutu <i class="fas fa-lock"></i></h3>
-        <p>Burada yazdıqlarınız tamamilə anonimdir və 20 saniyə sonra silinəcək.</p>
-        <textarea placeholder="Buraya səni narahat edən bir şeyi yaz..." rows="5" id="anonimInput"></textarea>
-        <div class="timer" id="anonimTimer"></div>
-        <button class="btn" onclick="submitAnonim()">Göndər</button>
-        <div id="anonimResponse" class="response"></div>
+      <h3>Anonim Qutu <i class="fas fa-lock"></i></h3>
+      <p>
+        Burada yazdıqlarınız tamamilə anonimdir və 20 saniyə sonra silinəcək.
+      </p>
+      <textarea
+        placeholder="Buraya səni narahat edən bir şeyi yaz..."
+        rows="5"
+        id="anonimInput"></textarea>
+      <div class="timer" id="anonimTimer"></div>
+      <button class="btn" onclick="submitAnonim()">Göndər</button>
+      <div id="anonimResponse" class="response"></div>
     </div>
 
     <div class="chatbot" id="chatbot">
-        <h3>AI Chatbot <i class="fas fa-robot"></i></h3>
-        <textarea placeholder="Probleminizi yazın..." rows="4" id="chatInput"></textarea>
-        <button class="btn" onclick="aiReply()">Cavab Al</button>
-        <div id="chatResponse" class="response"></div>
+      <h3>AI Chatbot <i class="fas fa-robot"></i></h3>
+      <textarea
+        placeholder="Probleminizi yazın..."
+        rows="4"
+        id="chatInput"></textarea>
+      <button class="btn" onclick="aiReply()">Cavab Al</button>
+      <div id="chatResponse" class="response"></div>
     </div>
 
     <div class="voice-journal" id="voice">
-        <h3>Səsli Jurnal <i class="fas fa-microphone"></i></h3>
-        <p>Mikrofonla danış, sistem səni anlayacaq!</p>
-        <button class="btn" id="voiceBtn" onclick="toggleVoiceJournal()">
-            <i class="fas fa-microphone"></i> Danışa Başla
-        </button>
-        <div id="voiceLog" class="response"></div>
+      <h3>Səsli Jurnal <i class="fas fa-microphone"></i></h3>
+      <p>Mikrofonla danış, sistem səni anlayacaq!</p>
+      <button class="btn" id="voiceBtn" onclick="toggleVoiceJournal()">
+        <i class="fas fa-microphone"></i> Danışa Başla
+      </button>
+      <div id="voiceLog" class="response"></div>
     </div>
 
     <div class="buttons">
-        <a href="#anonimqutu" class="btn">Anonim Qutunu Aç</a>
-        <a href="#" class="btn">Ana Səhifəyə Qayıt</a>
+      <a href="#anonimqutu" class="btn">Anonim Qutunu Aç</a>
+      <a href="#" class="btn">Ana Səhifəyə Qayıt</a>
     </div>
 
     <div class="notification" id="notification">
-        Mesajınız uğurla göndərildi və 20 saniyə sonra silinəcək.
+      Mesajınız uğurla göndərildi və 20 saniyə sonra silinəcək.
     </div>
 
-    <footer>
-        &copy; 2025 Psixoloji Platforma. Bütün hüqüqlar qorunur.
-    </footer>
+    <footer>&copy; 2025 Psixoloji Platforma. Bütün hüqüqlar qorunur.</footer>
 
     <script>
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('active');
-            document.querySelector('.overlay').classList.toggle('active');
+      function toggleSidebar() {
+        document.querySelector(".sidebar").classList.toggle("active");
+        document.querySelector(".overlay").classList.toggle("active");
+      }
+
+      function toggleMobileMenu() {
+        document.getElementById("mobileMenu").style.display =
+          document.getElementById("mobileMenu").style.display === "block"
+            ? "none"
+            : "block";
+      }
+
+      let anonimTimer;
+      let secondsLeft = 20;
+
+      function submitAnonim() {
+        const msg = document.getElementById("anonimInput").value;
+        if (!msg) {
+          document.getElementById("anonimResponse").innerText =
+            "Zəhmət olmasa mesaj yaz.";
+          return;
         }
 
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').style.display = 
-                document.getElementById('mobileMenu').style.display === 'block' ? 'none' : 'block';
+        // Show notification
+        const notification = document.getElementById("notification");
+        notification.style.display = "block";
+        setTimeout(() => {
+          notification.style.display = "none";
+        }, 3000);
+
+        if (anonimTimer) {
+          clearInterval(anonimTimer);
         }
 
-        let anonimTimer;
-        let secondsLeft = 20;
+        secondsLeft = 20;
+        document.getElementById(
+          "anonimTimer"
+        ).innerText = `Mesaj ${secondsLeft} saniyə sonra silinəcək`;
 
-        function submitAnonim() {
-            const msg = document.getElementById('anonimInput').value;
-            if (!msg) {
-                document.getElementById('anonimResponse').innerText = 'Zəhmət olmasa mesaj yaz.';
-                return;
-            }
+        anonimTimer = setInterval(() => {
+          secondsLeft--;
+          document.getElementById(
+            "anonimTimer"
+          ).innerText = `Mesaj ${secondsLeft} saniyə sonra silinəcək`;
 
-            // Show notification
-            const notification = document.getElementById('notification');
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+          if (secondsLeft <= 0) {
+            clearInterval(anonimTimer);
+            document.getElementById("anonimInput").value = "";
+            document.getElementById("anonimResponse").innerText = "";
+            document.getElementById("anonimTimer").innerText = "";
+          }
+        }, 1000);
 
-            if (anonimTimer) {
-                clearInterval(anonimTimer);
-            }
+        document.getElementById("anonimResponse").innerText =
+          "Mesajın qeydə alındı. Anonim qalacaq.";
+      }
 
-            secondsLeft = 20;
-            document.getElementById('anonimTimer').innerText = `Mesaj ${secondsLeft} saniyə sonra silinəcək`;
+      function aiReply() {
+        const input = document.getElementById("chatInput").value;
+        const response = input
+          ? `AI: Səni başa düşürəm. Bu barədə daha ətraflı danışmaq istərsən?`
+          : "Zəhmət olmasa bir şey yaz.";
+        document.getElementById("chatResponse").innerText = response;
+      }
 
-            anonimTimer = setInterval(() => {
-                secondsLeft--;
-                document.getElementById('anonimTimer').innerText = `Mesaj ${secondsLeft} saniyə sonra silinəcək`;
+      let isRecording = false;
 
-                if (secondsLeft <= 0) {
-                    clearInterval(anonimTimer);
-                    document.getElementById('anonimInput').value = '';
-                    document.getElementById('anonimResponse').innerText = '';
-                    document.getElementById('anonimTimer').innerText = '';
-                }
-            }, 1000);
+      function toggleVoiceJournal() {
+        const voiceBtn = document.getElementById("voiceBtn");
+        const voiceLog = document.getElementById("voiceLog");
 
-            document.getElementById('anonimResponse').innerText = 'Mesajın qeydə alındı. Anonim qalacaq.';
+        if (isRecording) {
+          // Stop recording
+          voiceBtn.innerHTML = '<i class="fas fa-microphone"></i> Danışa Başla';
+          voiceLog.innerText =
+            "(Simulyasiya) Səs yazısı: 'Bugün özümü yaxşı hiss etmirəm, amma bunu danışmaq kömək etdi.'";
+        } else {
+          // Start recording
+          voiceBtn.innerHTML = '<i class="fas fa-stop"></i> Dayandır';
+          voiceLog.innerText = "Dinləyirəm...";
         }
 
-        function aiReply() {
-            const input = document.getElementById('chatInput').value;
-            const response = input ? `AI: Səni başa düşürəm. Bu barədə daha ətraflı danışmaq istərsən?` : 'Zəhmət olmasa bir şey yaz.';
-            document.getElementById('chatResponse').innerText = response;
-        }
+        isRecording = !isRecording;
+      }
 
-        let isRecording = false;
+      // Psychologist functions
+      function showPsychologistOptions() {
+        document.getElementById("psychologistModal").style.display = "flex";
+      }
 
-        function toggleVoiceJournal() {
-            const voiceBtn = document.getElementById('voiceBtn');
-            const voiceLog = document.getElementById('voiceLog');
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+      }
 
-            if (isRecording) {
-                // Stop recording
-                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i> Danışa Başla';
-                voiceLog.innerText = "(Simulyasiya) Səs yazısı: 'Bugün özümü yaxşı hiss etmirəm, amma bunu danışmaq kömək etdi.'";
-            } else {
-                // Start recording
-                voiceBtn.innerHTML = '<i class="fas fa-stop"></i> Dayandır';
-                voiceLog.innerText = "Dinləyirəm...";
-            }
+      function startPsychologistTest() {
+        closeModal("psychologistModal");
+        document.getElementById("testModal").style.display = "flex";
+      }
 
-            isRecording = !isRecording;
-        }
+      function showPsychologistList() {
+        closeModal("psychologistModal");
+        document.getElementById("psychologistListModal").style.display = "flex";
+      }
 
-        // Psychologist functions
-        function showPsychologistOptions() {
-            document.getElementById('psychologistModal').style.display = 'flex';
-        }
+      function selectPsychologist(name) {
+        closeModal("psychologistListModal");
+        alert(
+          `${name} psixoloqu seçildi. Tezliklə sizinlə əlaqə saxlanılacaq.`
+        );
+      }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
+      function submitTest() {
+        closeModal("testModal");
+        alert(
+          "Testiniz uğurla tamamlandı! Sizə uyğun psixoloq: Dr. Aydan Əliyeva (Depressiya, Anksiyetə ixtisası)"
+        );
+      }
 
-        function startPsychologistTest() {
-            closeModal('psychologistModal');
-            document.getElementById('testModal').style.display = 'flex';
-        }
-
-        function showPsychologistList() {
-            closeModal('psychologistModal');
-            document.getElementById('psychologistListModal').style.display = 'flex';
-        }
-
-        function selectPsychologist(name) {
-            closeModal('psychologistListModal');
-            alert(`${name} psixoloqu seçildi. Tezliklə sizinlə əlaqə saxlanılacaq.`);
-        }
-
-        function submitTest() {
-            closeModal('testModal');
-            alert('Testiniz uğurla tamamlandı! Sizə uyğun psixoloq: Dr. Aydan Əliyeva (Depressiya, Anksiyetə ixtisası)');
-        }
-
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobileMenu').style.display = 'none';
-            });
+      document.querySelectorAll(".mobile-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("mobileMenu").style.display = "none";
         });
+      });
     </script>
-</body>
+  </body>
 </html>
